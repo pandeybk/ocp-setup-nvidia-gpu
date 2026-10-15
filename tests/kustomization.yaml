@@ -1,0 +1,8 @@
+# oc apply -k tests
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - gpu-smi.yaml
+  - gpu-debug.yaml
+  - cuda-vectoradd.yaml

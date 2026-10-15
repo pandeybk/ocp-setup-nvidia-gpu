@@ -1,0 +1,20 @@
+# Merge spec.template.spec.domain.devices.gpus into your VM.
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: gpu-vgpu
+  namespace: gpu-test
+spec:
+  running: false
+  template:
+    spec:
+      domain:
+        devices:
+          gpus:
+            - name: gpu1
+              deviceName: nvidia.com/NVIDIA_A10-12Q
+        resources:
+          requests:
+            memory: 8Gi
+            cpu: "4"
+      terminationGracePeriodSeconds: 30

@@ -1,0 +1,37 @@
+# nvidia.com/vgpu.config=<key> on the node. default = half framebuffer Q-profile.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-vgpu-config
+  namespace: nvidia-gpu-operator
+data:
+  config.yaml: |
+    version: v1
+    vgpu-configs:
+      default:
+        - devices: all
+          vgpu-devices:
+            "A10-12Q": 2
+            "T4-8Q": 2
+            "L4-12Q": 2
+      A10-8Q:
+        - devices: all
+          vgpu-devices:
+            "A10-8Q": 3
+      A10-4Q:
+        - devices: all
+          vgpu-devices:
+            "A10-4Q": 6
+      T4-8Q:
+        - devices: all
+          vgpu-devices:
+            "T4-8Q": 2
+      L4-8Q:
+        - devices: all
+          vgpu-devices:
+            "L4-8Q": 3
+      custom-A10-mixed:
+        - devices: all
+          vgpu-devices:
+            "A10-4Q": 3
+            "A10-6Q": 2

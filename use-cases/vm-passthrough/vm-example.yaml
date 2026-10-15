@@ -1,0 +1,21 @@
+# Merge spec.template.spec.domain.devices.gpus into your VM.
+# deviceName must match HyperConverged resourceName / node allocatable.
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: gpu-passthrough
+  namespace: gpu-test
+spec:
+  running: false
+  template:
+    spec:
+      domain:
+        devices:
+          gpus:
+            - name: gpu1
+              deviceName: nvidia.com/GA102GL_A10
+        resources:
+          requests:
+            memory: 8Gi
+            cpu: "4"
+      terminationGracePeriodSeconds: 30

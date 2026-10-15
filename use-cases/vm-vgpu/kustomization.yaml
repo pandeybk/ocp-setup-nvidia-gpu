@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../operator
+  - iommu-intel.yaml
+  - custom-vgpu-config.yaml
+patches:
+  - path: clusterpolicy-patch.yaml

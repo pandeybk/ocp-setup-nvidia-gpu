@@ -1,0 +1,21 @@
+# Merge into existing HyperConverged kubevirt-hyperconverged (openshift-cnv).
+# Do not oc apply this file as a full CR.
+#
+# pciDeviceSelector from: lspci -nnk -d 10de:
+#   T4 10DE:1EB8  A10 10DE:2236  L4 10DE:27B8  L40S 10DE:26B9
+#
+# OpenShift Virtualization >= 4.23:
+apiVersion: hco.kubevirt.io/v1
+kind: HyperConverged
+metadata:
+  name: kubevirt-hyperconverged
+  namespace: openshift-cnv
+spec:
+  virtualization:
+    mediatedDevicesConfiguration:
+      enabled: false
+    permittedHostDevices:
+      pciHostDevices:
+        - externalResourceProvider: true
+          pciDeviceSelector: 10DE:2236
+          resourceName: nvidia.com/GA102GL_A10

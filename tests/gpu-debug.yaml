@@ -1,0 +1,15 @@
+# oc exec -n gpu-test gpu-debug -- nvidia-smi
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gpu-debug
+  namespace: gpu-test
+spec:
+  restartPolicy: Always
+  containers:
+    - name: cuda
+      image: nvcr.io/nvidia/cuda:12.6.0-base-ubi9
+      command: ["sleep", "infinity"]
+      resources:
+        limits:
+          nvidia.com/gpu: "1"

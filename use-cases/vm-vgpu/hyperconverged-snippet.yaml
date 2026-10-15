@@ -1,0 +1,16 @@
+# Merge into kubevirt-hyperconverged. Do not oc apply as a full CR.
+# resourceName from node allocatable (nvidia.com/NVIDIA_A10-12Q, nvidia.com/GRID_T4-8Q, …)
+apiVersion: hco.kubevirt.io/v1
+kind: HyperConverged
+metadata:
+  name: kubevirt-hyperconverged
+  namespace: openshift-cnv
+spec:
+  virtualization:
+    mediatedDevicesConfiguration:
+      enabled: false
+    permittedHostDevices:
+      mediatedDevices:
+        - externalResourceProvider: true
+          mdevNameSelector: NVIDIA A10-12Q
+          resourceName: nvidia.com/NVIDIA_A10-12Q

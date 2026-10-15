@@ -1,0 +1,14 @@
+apiVersion: nvidia.com/v1
+kind: ClusterPolicy
+metadata:
+  name: gpu-cluster-policy
+spec:
+  sandboxWorkloads:
+    enabled: true
+    defaultWorkload: container
+  sandboxDevicePlugin:
+    enabled: true
+  vfioManager:
+    enabled: true
+  vgpuManager:
+    enabled: false

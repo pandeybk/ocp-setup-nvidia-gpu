@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: device-plugin-config
+  namespace: nvidia-gpu-operator
+data:
+  any: |-
+    version: v1
+    flags:
+      migStrategy: none
+    sharing:
+      timeSlicing:
+        renameByDefault: false
+        failRequestsGreaterThanOne: false
+        resources:
+          - name: nvidia.com/gpu
+            replicas: 4
+  Tesla-T4: |-
+    version: v1
+    sharing:
+      timeSlicing:
+        resources:
+          - name: nvidia.com/gpu
+            replicas: 8
+  L4: |-
+    version: v1
+    sharing:
+      timeSlicing:
+        resources:
+          - name: nvidia.com/gpu
+            replicas: 8
+  A10G: |-
+    version: v1
+    sharing:
+      timeSlicing:
+        resources:
+          - name: nvidia.com/gpu
+            replicas: 8
+  A100-SXM4-40GB: |-
+    version: v1
+    sharing:
+      timeSlicing:
+        resources:
+          - name: nvidia.com/gpu
+            replicas: 8
+  A100-SXM4-80GB: |-
+    version: v1
+    sharing:
+      timeSlicing:
+        resources:
+          - name: nvidia.com/gpu
+            replicas: 8
+  H100: |-
+    version: v1
+    sharing:
+      timeSlicing:
+        resources:
+          - name: nvidia.com/gpu
+            replicas: 8

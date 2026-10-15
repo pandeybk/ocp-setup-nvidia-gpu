@@ -1,0 +1,9 @@
+# oc apply -k llmd
+# Requires OpenShift AI + GPU Operator Ready (nvidia.com/gpu).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - llama-gateway.yaml
+  - llama-31-8b-llmisvc.yaml
+  - networkpolicy.yaml

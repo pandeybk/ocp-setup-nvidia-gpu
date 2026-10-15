@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gpu-smi
+  namespace: gpu-test
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: gpu-smi
+          image: nvcr.io/nvidia/cuda:12.6.0-base-ubi9
+          command: ["nvidia-smi"]
+          resources:
+            limits:
+              nvidia.com/gpu: "1"
