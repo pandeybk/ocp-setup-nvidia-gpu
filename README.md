@@ -4,6 +4,7 @@ Order: **GPU node → NFD → GPU Operator CSV Succeeded → ClusterPolicy → `
 
 ```
 operator/     NFD + NVIDIA GPU Operator + ClusterPolicy
+machine-api/  AWS GPU MachineSet (make add-nvidia-l4 / add-nvidia-t4 / add-nvidia-a10g)
 tests/        gpu-smi Job, gpu-debug Pod, cuda-vectoradd Job
 llmd/         GPU LLMInferenceService (needs OpenShift AI)
 use-cases/    exclusive, time-slicing, MPS, MIG, DCGM, VM passthrough/vGPU
@@ -18,14 +19,18 @@ oc get nodes -o wide
 oc get nodes -l node-role.kubernetes.io/gpu
 ```
 
-### Cloud IPI (AWS, Azure, GCP)
+### Cloud IPI (AWS)
 
-Machine API creates the VM. Clone a worker MachineSet. Example AWS: `instanceType: g6.8xlarge`, `replicas: 1`, label `node-role.kubernetes.io/gpu: ""`.
+Clone a worker MachineSet. Three NVIDIA pools: L4, T4, A10G. GPU MachineSets are named `*-gpu-nvidia-<type>` and labeled `gpu=true`.
 
 ```bash
-oc get machinesets -n openshift-machine-api
-oc get machines -n openshift-machine-api
-oc get nodes -l node-role.kubernetes.io/gpu
+make add-nvidia-l4                 # g6.8xlarge   NVIDIA L4
+make add-nvidia-t4                 # g4dn.xlarge  NVIDIA T4
+make add-nvidia-a10g               # g5.2xlarge   NVIDIA A10G
+oc get machineset -n openshift-machine-api -l gpu=true
+oc get nodes -l node-role.kubernetes.io/nvidia-l4
+oc get nodes -l node-role.kubernetes.io/nvidia-t4
+oc get nodes -l node-role.kubernetes.io/nvidia-a10g
 ```
 
 ### Bare metal
